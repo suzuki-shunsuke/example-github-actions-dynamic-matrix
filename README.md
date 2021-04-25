@@ -1,5 +1,9 @@
 # example-github-actions-dynamic-matrix
 
+[![Build Status](https://github.com/suzuki-shunsuke/example-github-actions-dynamic-matrix/workflows/test/badge.svg)](https://github.com/suzuki-shunsuke/example-github-actions-dynamic-matrix/actions)
+[![GitHub last commit](https://img.shields.io/github/last-commit/suzuki-shunsuke/example-github-actions-dynamic-matrix.svg)](https://github.com/suzuki-shunsuke/example-github-actions-dynamic-matrix)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/suzuki-shunsuke/example-github-actions-dynamic-matrix/master/LICENSE)
+
 Example of GitHub Actions Workflow which runs a matrix build dynamically according to changed files in the pull request and pull request labels.
 
 This is useful in case of Monorepo.
