@@ -25,4 +25,6 @@ main() {
   fi
 }
 
+# convert lines into a JSON list with jq
+# https://stackoverflow.com/a/28006220
 main | sort -u | jq -R -s -c 'split("\n")[:-1]'
