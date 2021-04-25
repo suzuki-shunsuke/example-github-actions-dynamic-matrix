@@ -1,0 +1,30 @@
+---
+name: test
+on:
+  push:
+    branches: [master]
+    tags: [v*]
+  pull_request:
+    branches: [master]
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      services: ${{ steps.output-services.outputs.services }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: output services
+        id: output-services
+        run: |
+          echo "::set-output name=services::$(cat services.json)"
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      matrix:
+        service: ${{fromJSON(needs.setup.outputs.services)}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: test service (${{ matrix.service }})
+        run: |
+          echo "${{ matrix.service }}"
