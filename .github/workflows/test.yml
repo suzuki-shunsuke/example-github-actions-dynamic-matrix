@@ -13,10 +13,16 @@ jobs:
       services: ${{ steps.output-services.outputs.services }}
     steps:
       - uses: actions/checkout@v2
+      - name: Install akoi
+        uses: suzuki-shunsuke/akoi-installer@v0.1.0
+      - name: install tools
+        run: .akoi/bin/akoi install
       - name: output services
         id: output-services
         run: |
-          echo "::set-output name=services::$(cat services.json)"
+          export PATH="$PWD/.akoi/bin:$PATH"
+          eval "$(ci-info run)"
+          echo "::set-output name=services::$(bash ci/output-services-json.sh $CI_INFO_TEMP_DIR/pr_all_filenames.txt $CI_INFO_TEMP_DIR/labels.txt)"
   build:
     runs-on: ubuntu-latest
     needs: setup
