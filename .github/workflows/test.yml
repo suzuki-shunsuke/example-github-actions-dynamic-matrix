@@ -1,0 +1,39 @@
+---
+name: test
+on:
+  push:
+    branches: [master]
+    tags: [v*]
+  pull_request:
+    branches: [master]
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      services: ${{ steps.output-services.outputs.services }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install akoi
+        uses: suzuki-shunsuke/akoi-installer@v0.1.0
+      - name: install tools
+        run: .akoi/bin/akoi install
+      - name: output services
+        id: output-services
+        run: |
+          export PATH="$PWD/.akoi/bin:$PATH"
+          eval "$(ci-info run)"
+          echo "::set-output name=services::$(bash ci/output-services-json.sh $CI_INFO_TEMP_DIR/pr_all_filenames.txt $CI_INFO_TEMP_DIR/labels.txt)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      matrix:
+        service: ${{fromJSON(needs.setup.outputs.services)}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: test service (${{ matrix.service }})
+        run: |
+          cd "${{ matrix.service }}"
+          go run main.go

@@ -1,0 +1,18 @@
+---
+# akoi - binary version control system
+# https://github.com/suzuki-shunsuke/akoi
+bin_path: ".akoi/pkgs/{{.OS}}/{{.Name}}/{{.Version}}/{{.Name}}"
+link_path: ".akoi/bin/{{.Name}}"
+packages:
+  ci-info:
+    url: 'https://github.com/suzuki-shunsuke/{{.Name}}/releases/download/{{.Version}}/{{.Name}}_{{trimPrefix "v" .Version}}_{{.OS}}_{{.Arch}}.tar.gz'
+    version: v2.0.1 # renovate: depName=suzuki-shunsuke/ci-info
+    files:
+    - name: ci-info
+      archive: "{{.Name}}"
+  matchfile:
+    url: 'https://github.com/suzuki-shunsuke/{{.Name}}/releases/download/{{.Version}}/{{.Name}}_{{trimPrefix "v" .Version}}_{{.OS}}_{{.Arch}}.tar.gz'
+    version: v1.0.0 # renovate: depName=suzuki-shunsuke/matchfile
+    files:
+    - name: matchfile
+      archive: "{{.Name}}"
