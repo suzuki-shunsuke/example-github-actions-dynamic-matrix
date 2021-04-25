@@ -8,6 +8,10 @@ Example of GitHub Actions Workflow which runs a matrix build dynamically accordi
 
 This is useful in case of Monorepo.
 
+## Demo
+
+We created some pull requests for the demonstration. Please see [here](https://github.com/suzuki-shunsuke/example-github-actions-dynamic-matrix/pulls?q=is%3Apr+is%3Aopen+label%3Ademo).
+
 ## Dependencies
 
 * [akoi](https://github.com/suzuki-shunsuke/akoi)
